@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ArtisanSearchService, Artisan } from '../../services/artisan.service';
+import { ArtisanSearchService } from '../../services/artisan.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Artisan } from '../../models/artisan.model';
 
 @Component({
   selector: 'app-artisan-profile',

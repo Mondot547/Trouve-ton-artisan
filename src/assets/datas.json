@@ -2,7 +2,7 @@
   {
     "id": "1",
     "name": "Vallis Bellemare",
-    "image": "",
+    "image": "/assets/images/artisan-image.jpg",
     "specialty": "Plombier",
     "note": "4",
     "location": "Vienne",
@@ -15,7 +15,7 @@
   {
     "id": "2",
     "name": "Amitee Lécuyer",
-    "image": "",
+    "image": "./images/artisan-image.jpg",
     "specialty": "Couturier",
     "note": "4.5",
     "location": "Annecy",
@@ -28,7 +28,7 @@
   {
     "id": "3",
     "name": "Leala Dennis",
-    "image": "",
+    "image": "./images/artisan-image.jpg",
     "specialty": "Coiffeur",
     "note": "3.8",
     "location": "Chambéry",
@@ -41,7 +41,7 @@
   {
     "id": "4",
     "name": "Chocolaterie Labbé",
-    "image": "",
+    "image": "./images/artisan-image.jpg",
     "specialty": "Chocolatier",
     "note": "4.9",
     "location": "Grenoble",
@@ -54,7 +54,7 @@
   {
     "id": "5",
     "name": "Claude Quinn",
-    "image": "",
+    "image": "./images/artisan-image.jpg",
     "specialty": "Bijoutier",
     "note": "4.2",
     "location": "Aix-les-bains",
@@ -67,7 +67,7 @@
   {
     "id": "6",
     "name": "Valérie Laderoute",
-    "image": "",
+    "image": "./images/artisan-image.jpg",
     "specialty": "Toiletteur",
     "note": "4.5",
     "location": "Valence",
@@ -80,7 +80,7 @@
   {
     "id": "7",
     "name": "Boutot & fils",
-    "image": "",
+    "image": "./images/artisan-image.jpg",
     "specialty": "Menuisier",
     "note": "4.7",
     "location": "Bourg-en-bresse",
@@ -93,7 +93,7 @@
   {
     "id": "8",
     "name": "CM Graphisme",
-    "image": "",
+    "image": "./images/artisan-image.jpg",
     "specialty": "Webdesign",
     "note": "4.4",
     "location": "Valence",
@@ -106,7 +106,7 @@
   {
     "id": "9",
     "name": "Orville Salmons",
-    "image": "",
+    "image": "./images/artisan-image.jpg",
     "specialty": "Chauffagiste",
     "note": "5",
     "location": "Evian",
@@ -119,7 +119,7 @@
   {
     "id": "10",
     "name": "Au pain chaud",
-    "image": "",
+    "image": "./images/artisan-image.jpg",
     "specialty": "Boulanger",
     "note": "4.8",
     "location": "Montélimar",
@@ -132,7 +132,7 @@
   {
     "id": "11",
     "name": "Boucherie Dumont",
-    "image": "",
+    "image": "./images/artisan-image.jpg",
     "specialty": "Boucher",
     "note": "4.5",
     "location": "Lyon",
@@ -145,7 +145,7 @@
   {
     "id": "12",
     "name": "Mont Blanc Eléctricité",
-    "image": "",
+    "image": "./images/artisan-image.jpg",
     "specialty": "Electricien",
     "note": "4.5",
     "location": "Chamonix",
@@ -158,7 +158,7 @@
   {
     "id": "13",
     "name": "Traiteur Truchon",
-    "image": "",
+    "image": "./images/artisan-image.jpg",
     "specialty": "Traiteur",
     "note": "4.1",
     "location": "Privas",
@@ -171,7 +171,7 @@
   {
     "id": "14",
     "name": "Le monde des fleurs",
-    "image": "",
+    "image": "./images/artisan-image.jpg",
     "specialty": "Fleuriste",
     "note": "4.6",
     "location": "Annonay",
@@ -184,7 +184,7 @@
   {
     "id": "15",
     "name": "Royden Charbonneau",
-    "image": "",
+    "image": "./images/artisan-image.jpg",
     "specialty": "Carrossier",
     "note": "3.8",
     "location": "Saint-Priest",
@@ -197,7 +197,7 @@
   {
     "id": "16",
     "name": "Ernest Carignan",
-    "image": "",
+    "image": "./images/artisan-image.jpg",
     "specialty": "Ferronier",
     "note": "5",
     "location": "Le Puy-en-Velay",
@@ -210,7 +210,7 @@
   {
     "id": "17",
     "name": "C'est sup'hair",
-    "image": "",
+    "image": "./images/artisan-image.jpg",
     "specialty": "Coiffeur",
     "note": "4.1",
     "location": "Romans-sur-Isère",

@@ -2,8 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { ArtisanSearchService, Artisan } from '../../services/artisan.service';
+import { ArtisanSearchService } from '../../services/artisan.service';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { Artisan } from '../../models/artisan.model';
+import { ArtisanMethods } from '../../services/artisan-methods.service';
 
 @Component({
   selector: 'app-header',
@@ -16,10 +18,13 @@ export class HeaderComponent implements OnInit {
   filteredArtisans$ = this.artisanService.getFilteredArtisans();
   topRatedArtisans: Artisan[] = [];
 
-  constructor(private artisanService: ArtisanSearchService) {}
+  constructor(
+    private ArtisanMethods: ArtisanMethods,
+    private artisanService: ArtisanSearchService
+  ) {}
 
   ngOnInit(): void {
-    this.artisanService.getTopRatedArtisans().subscribe((data) => {
+    this.ArtisanMethods.getTopRatedArtisans().subscribe((data) => {
       this.topRatedArtisans = data;
     });
   }

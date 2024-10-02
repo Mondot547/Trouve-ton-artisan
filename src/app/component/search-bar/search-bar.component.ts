@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Artisan, ArtisanSearchService } from '../../services/artisan.service';
+import { ArtisanSearchService } from '../../services/artisan.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';

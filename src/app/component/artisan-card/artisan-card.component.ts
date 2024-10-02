@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { ArtisanSearchService, Artisan } from '../../services/artisan.service';
+import { ArtisanSearchService } from '../../services/artisan.service';
 import { CommonModule } from '@angular/common';
 import { RatingStarsComponent } from '../rating-stars/rating-stars.component';
 import { RouterModule } from '@angular/router';
+import { Artisan } from '../../models/artisan.model';
 
 @Component({
   selector: 'app-artisan-card',

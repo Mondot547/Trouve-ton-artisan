@@ -1,18 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-
-export interface Artisan {
-  id: string;
-  name: string;
-  image: string;
-  specialty: string;
-  location: string;
-  note: number;
-  category: string;
-  website: string;
-  about: string;
-}
+import { BehaviorSubject } from 'rxjs';
+import { Artisan } from '../models/artisan.model';
+import { ArtisanMethods } from './artisan-methods.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +10,10 @@ export interface Artisan {
 export class ArtisanSearchService {
   private artisans: Artisan[] = [];
   private filteredArtisansSubject = new BehaviorSubject<Artisan[]>([]);
+  private artisanMethods!: ArtisanMethods; // Déclaration de l'instance de ArtisanMethods
 
   constructor(private http: HttpClient) {
+    this.artisanMethods = new ArtisanMethods(); // Initialiser ArtisanMethods ici
     this.loadArtisans();
   }
 
@@ -31,10 +23,10 @@ export class ArtisanSearchService {
       .subscribe((data) => {
         this.artisans = data;
         this.filteredArtisansSubject.next(this.artisans);
+        this.artisanMethods.init(this.artisans); // Appeler init pour stocker les artisans
       });
   }
 
-  //Méthode de réinitialisation
   resetSearchResults(): void {
     this.filteredArtisansSubject.next(this.artisans);
   }
@@ -49,31 +41,19 @@ export class ArtisanSearchService {
     this.filteredArtisansSubject.next(filtered);
   }
 
-  getFilteredArtisans(): Observable<Artisan[]> {
+  getFilteredArtisans() {
     return this.filteredArtisansSubject.asObservable();
   }
 
-  getTopRatedArtisans(limit: number = 3): Observable<Artisan[]> {
-    return new Observable<Artisan[]>((observer) => {
-      this.filteredArtisansSubject.subscribe((artisans) => {
-        const topRated = artisans
-          .slice()
-          .sort((a, b) => b.note - a.note) // Trier par note décroissante
-          .slice(0, limit); // Obtenir les 3 meilleurs artisans
-        observer.next(topRated);
-      });
-    });
+  getArtisansByCategory(category: string) {
+    return this.artisanMethods.getArtisansByCategory(category);
   }
 
-  getArtisansByCategory(category: string): Observable<Artisan[]> {
-    const filtered = this.artisans.filter(
-      (artisan) => artisan.category === category
-    );
-    return new BehaviorSubject<Artisan[]>(filtered).asObservable();
+  getArtisanById(id: string) {
+    return this.artisanMethods.getArtisanById(id);
   }
 
-  getArtisanById(id: string): Observable<Artisan | undefined> {
-    const artisan = this.artisans.find((artisan) => artisan.id === id);
-    return new BehaviorSubject<Artisan | undefined>(artisan).asObservable();
+  getTopRatedArtisans(limit: number = 3) {
+    return this.artisanMethods.getTopRatedArtisans(limit);
   }
 }
