@@ -1,0 +1,5 @@
+<div class="row">
+  <div class="col-md-4" *ngFor="let artisan of filteredArtisans$ | async">
+    <app-artisan-card [artisan]="artisan"></app-artisan-card>
+  </div>
+</div>

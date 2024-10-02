@@ -1,0 +1,75 @@
+<div class="artisan-profile container mt-5">
+  <div class="row">
+    <div class="col-md-4">
+      <img [src]="artisan?.image" alt="Image de l'artisan" class="img-fluid" />
+    </div>
+    <div class="col-md-8">
+      <h2>{{ artisan?.name }}</h2>
+      <p><strong>Note :</strong> {{ artisan?.note }}</p>
+      <p><strong>Spécialité :</strong> {{ artisan?.specialty }}</p>
+      <p><strong>Localisation :</strong> {{ artisan?.location }}</p>
+      <p>
+        <strong>Site Web :</strong>
+        <a [href]="artisan?.website">{{ artisan?.website }}</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Tabs pour description et contact -->
+  <div class="mt-4">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-bs-toggle="tab" href="#description"
+          >Description</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#contact">Contacter</a>
+      </li>
+    </ul>
+
+    <div class="tab-content mt-3">
+      <div id="description" class="tab-pane fade show active">
+        <p>{{ artisan?.about }}</p>
+      </div>
+      <div id="contact" class="tab-pane fade">
+        <form (ngSubmit)="sendMessage()">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nom</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              [(ngModel)]="contactName"
+              name="name"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              [(ngModel)]="contactEmail"
+              name="email"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea
+              class="form-control"
+              id="message"
+              rows="3"
+              [(ngModel)]="contactMessage"
+              name="message"
+              required
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Envoyer</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

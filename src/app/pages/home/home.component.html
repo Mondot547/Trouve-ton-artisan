@@ -1,0 +1,8 @@
+<div class="container mt-3">
+  <h2>Les artisans les mieux notés</h2>
+  <div class="row">
+    <div *ngFor="let artisan of topRatedArtisans$ | async" class="col-md-4">
+      <app-artisan-card [artisan]="artisan"></app-artisan-card>
+    </div>
+  </div>
+</div>

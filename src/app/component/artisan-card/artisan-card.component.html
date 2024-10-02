@@ -1,0 +1,13 @@
+<a [routerLink]="['/artisan', artisan.id]">
+  <div class="card">
+    <img [src]="artisan.image" class="card-img-top" alt="Artisan Image" />
+    <div class="card-body">
+      <h5 class="card-title">{{ artisan.name }}</h5>
+      <p class="card-text">{{ artisan.specialty }}</p>
+      <p class="card-text">
+        <small class="text-muted">{{ artisan.location }}</small>
+      </p>
+      <app-rating-stars [rating]="artisan.note"></app-rating-stars>
+    </div>
+  </div>
+</a>

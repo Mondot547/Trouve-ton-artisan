@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a
+      class="navbar-brand"
+      [routerLink]="['/']"
+      routerLinkActive="router-link-active"
+      >Trouve ton artisan</a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/']"
+            routerLinkActive="router-link-active"
+            >Accueil</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/batiment']"
+            routerLinkActive="router-link-active"
+            >Bâtiment</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/services']"
+            routerLinkActive="router-link-active"
+            >Services</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/fabrication']"
+            routerLinkActive="router-link-active"
+            >Fabrication</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/alimentation']"
+            routerLinkActive="router-link-active"
+            >Alimentation</a
+          >
+        </li>
+      </ul>
+      <app-search-bar></app-search-bar>
+    </div>
+  </div>
+</nav>
