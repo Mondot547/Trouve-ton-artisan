@@ -16,12 +16,10 @@
   </div>
 
   <!-- Tabs pour description et contact -->
-  <div class="mt-4">
+  <div class="mt-4 mb-5">
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a class="nav-link active" data-bs-toggle="tab" href="#description"
-          >Description</a
-        >
+        <a class="nav-link active" data-bs-toggle="tab" href="#description">Description</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="tab" href="#contact">Contacter</a>
@@ -33,39 +31,19 @@
         <p>{{ artisan?.about }}</p>
       </div>
       <div id="contact" class="tab-pane fade">
-        <form (ngSubmit)="sendMessage()">
+        <form #form="ngForm" (ngSubmit)="sendMessage(form)">
           <div class="mb-3">
             <label for="name" class="form-label">Nom</label>
-            <input
-              type="text"
-              class="form-control"
-              id="name"
-              [(ngModel)]="contactName"
-              name="name"
-              required
-            />
+            <input type="text" class="form-control" id="name" [(ngModel)]="contactName" name="name" required />
           </div>
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input
-              type="email"
-              class="form-control"
-              id="email"
-              [(ngModel)]="contactEmail"
-              name="email"
-              required
-            />
+            <input type="email" class="form-control" id="email" [(ngModel)]="contactEmail" name="email" required />
           </div>
           <div class="mb-3">
             <label for="message" class="form-label">Message</label>
-            <textarea
-              class="form-control"
-              id="message"
-              rows="3"
-              [(ngModel)]="contactMessage"
-              name="message"
-              required
-            ></textarea>
+            <textarea class="form-control" id="message" rows="3" [(ngModel)]="contactMessage" name="message"
+              required></textarea>
           </div>
           <button type="submit" class="btn btn-primary">Envoyer</button>
         </form>

@@ -1,0 +1,8 @@
+<div class="slider-container mt-5">
+    <div class="slider" [style.transform]="'translateX(' + translateXValue + '%)'">
+        <div class="slide" *ngFor="let comment of comments">
+            <p class="comment">{{ comment.text }}</p>
+            <p class="author">- {{ comment.author }}</p>
+        </div>
+    </div>
+</div>

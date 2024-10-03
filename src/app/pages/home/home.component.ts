@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { Observable, of } from 'rxjs';
 import { Artisan } from '../../models/artisan.model';
 import { ArtisanSearchService } from '../../services/artisan.service';
+import { CommentSliderComponent } from '../../component/comment-slider/comment-slider.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ArtisanCardComponent, CommonModule],
+  imports: [ArtisanCardComponent, CommonModule, CommentSliderComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })

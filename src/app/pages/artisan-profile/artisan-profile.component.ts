@@ -19,10 +19,13 @@ export class ArtisanProfileComponent implements OnInit {
   contactEmail: string = '';
   contactMessage: string = '';
 
-  sendMessage() {
+  sendMessage(form: any) {
+    console.log('Artisan:', this.artisan?.name)
     console.log('Nom:', this.contactName);
     console.log('Email:', this.contactEmail);
     console.log('Message:', this.contactMessage);
+
+    form.resetForm();
   }
 
   constructor(

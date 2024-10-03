@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
         (input)="onSearch()"
         name="search"
       />
-      <button class="d-none" type="submit">Rechercher</button>
+      <button type="submit"><i class="bi bi-search"></i></button>
     </form>
   `,
   styleUrl: './search-bar.component.scss',
