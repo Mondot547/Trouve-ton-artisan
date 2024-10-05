@@ -8,4 +8,5 @@ export interface Artisan {
   category: string;
   website: string;
   about: string;
+  email: string;
 }

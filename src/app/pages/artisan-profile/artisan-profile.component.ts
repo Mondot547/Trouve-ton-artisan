@@ -4,6 +4,7 @@ import { ArtisanSearchService } from '../../services/artisan.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Artisan } from '../../models/artisan.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-artisan-profile',
@@ -20,17 +21,34 @@ export class ArtisanProfileComponent implements OnInit {
   contactMessage: string = '';
 
   sendMessage(form: any) {
-    console.log('Artisan:', this.artisan?.name)
-    console.log('Nom:', this.contactName);
-    console.log('Email:', this.contactEmail);
-    console.log('Message:', this.contactMessage);
+    if (!this.artisan) return;
 
-    form.resetForm();
+    // Objet pour l'email
+    const emailData = {
+      toEmail: this.artisan.email,
+      fromName: this.contactName,
+      fromEmail: this.contactEmail,
+      messageContent: this.contactMessage
+    };
+
+    // Requête POST vers ton backend Node.js
+    this.http.post('http://localhost:3000/send-email', emailData)
+      .subscribe(
+        response => {
+          console.log('Email envoyé avec succès', response);
+          form.resetForm(); // Réinitialiser le formulaire après l'envoi
+        },
+        error => {
+          console.error('Erreur lors de l\'envoi de l\'email', error);
+        }
+      );
   }
+  
 
   constructor(
     private route: ActivatedRoute,
-    private artisanService: ArtisanSearchService
+    private artisanService: ArtisanSearchService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
