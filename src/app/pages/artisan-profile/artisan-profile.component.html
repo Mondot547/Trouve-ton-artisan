@@ -9,9 +9,13 @@
       <p><strong>Spécialité :</strong> {{ artisan?.specialty }}</p>
       <p><strong>Localisation :</strong> {{ artisan?.location }}</p>
       <p>
-        <strong>Site Web :</strong>
-        <a [href]="artisan?.website">{{ artisan?.website }}</a>
+        <strong>Site Web : </strong>
+        <a *ngIf="artisan?.website; else showEmail" [href]="artisan?.website">{{ artisan?.website }}</a>
+        <ng-template #showEmail>
+          <span>{{ artisan?.email }}</span>
+        </ng-template>
       </p>
+
     </div>
   </div>
 
@@ -44,6 +48,13 @@
             <input type="email" class="form-control" id="email" formControlName="contactEmail" required />
             <div *ngIf="form.get('contactEmail')?.invalid && form.get('contactEmail')?.touched" class="text-danger">
               Veuillez entrer un email valide.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="subject" class="form-label">Sujet</label>
+            <input type="text" class="form-control" id="subject" formControlName="contactSubject" required />
+            <div *ngIf="form.get('contactSubject')?.invalid && form.get('contactSubject')?.touched" class="text-danger">
+              Le sujet est requis (3-100 caractères).
             </div>
           </div>
           <div class="mb-3">

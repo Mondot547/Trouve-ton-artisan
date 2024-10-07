@@ -33,6 +33,7 @@ export class ArtisanProfileComponent implements OnInit {
     this.form = this.fb.group({
       contactName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       contactEmail: ['', [Validators.required, Validators.email]],
+      contactSubject: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       contactMessage: ['', [Validators.required, Validators.minLength(10)]]
     });
 
