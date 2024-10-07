@@ -1,66 +1,96 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArtisanSearchService } from '../../services/artisan.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Artisan } from '../../models/artisan.model';
 import { HttpClient } from '@angular/common/http';
+import { RatingStarsComponent } from '../../component/rating-stars/rating-stars.component';
 
 @Component({
   selector: 'app-artisan-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RatingStarsComponent],
   templateUrl: './artisan-profile.component.html',
-  styleUrl: './artisan-profile.component.scss',
+  styleUrls: ['./artisan-profile.component.scss'],
 })
 export class ArtisanProfileComponent implements OnInit {
   artisan: Artisan | undefined;
-
-  contactName: string = '';
-  contactEmail: string = '';
-  contactMessage: string = '';
-
-  sendMessage(form: any) {
-    if (!this.artisan) return;
-
-    // Objet pour l'email
-    const emailData = {
-      toEmail: this.artisan.email,
-      fromName: this.contactName,
-      fromEmail: this.contactEmail,
-      messageContent: this.contactMessage
-    };
-
-    // Requête POST vers ton backend Node.js
-    this.http.post('http://localhost:3000/send-email', emailData)
-      .subscribe(
-        response => {
-          console.log('Email envoyé avec succès', response);
-          form.resetForm(); // Réinitialiser le formulaire après l'envoi
-        },
-        error => {
-          console.error('Erreur lors de l\'envoi de l\'email', error);
-        }
-      );
-  }
-  
+  form!: FormGroup; // Déclaration du formulaire réactif
+  showModal = false;
+  modalMessage: string = '';
+  isSuccess = false;
 
   constructor(
     private route: ActivatedRoute,
     private artisanService: ArtisanSearchService,
-    private http: HttpClient
+    private http: HttpClient,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    // Initialisation du formulaire avec le FormBuilder
+    this.form = this.fb.group({
+      contactName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      contactEmail: ['', [Validators.required, Validators.email]],
+      contactMessage: ['', [Validators.required, Validators.minLength(10)]]
+    });
+
+    // Charger les détails de l'artisan si l'ID est présent dans l'URL
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.loadArtisanDetails(id);
     }
   }
 
+  sendMessage() {
+    if (!this.artisan) return;
+
+    // Vérifier la validité du formulaire avant l'envoi
+    if (this.form.invalid) {
+      this.modalMessage = 'Veuillez remplir tous les champs correctement.';
+      this.isSuccess = false;
+      this.showModal = true;
+      this.closeModalAfterDelay();
+      return;
+    }
+
+    // Objet pour l'email
+    const emailData = {
+      toEmail: this.artisan.email,
+      fromName: this.form.value.contactName,
+      fromEmail: this.form.value.contactEmail,
+      messageContent: this.form.value.contactMessage
+    };
+
+    // Requête POST vers le backend
+    this.http.post('http://localhost:3000/send-email', emailData)
+      .subscribe(
+        response => {
+          this.isSuccess = true;
+          this.modalMessage = 'Email envoyé avec succès !';
+          this.showModal = true;
+          this.form.reset(); // Réinitialiser le formulaire après l'envoi
+          this.closeModalAfterDelay();
+        },
+        error => {
+          this.isSuccess = false;
+          this.modalMessage = 'Une Erreur est survenue lors de l\'envoi de l\'email !';
+          this.showModal = true;
+          this.closeModalAfterDelay();
+        }
+      );
+  }
+
   loadArtisanDetails(id: string): void {
     this.artisanService.getArtisanById(id).subscribe((artisan) => {
       this.artisan = artisan;
     });
+  }
+
+  closeModalAfterDelay() {
+    setTimeout(() => {
+      this.showModal = false;
+    }, 3000);
   }
 }

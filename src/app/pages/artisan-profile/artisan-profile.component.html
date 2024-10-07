@@ -3,9 +3,9 @@
     <div class="col-md-4">
       <img [src]="artisan?.image" alt="Image de l'artisan" class="img-fluid" />
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8 text-center">
       <h2>{{ artisan?.name }}</h2>
-      <p><strong>Note :</strong> {{ artisan?.note }}</p>
+      <app-rating-stars [rating]="artisan?.note ?? 0"></app-rating-stars>
       <p><strong>Spécialité :</strong> {{ artisan?.specialty }}</p>
       <p><strong>Localisation :</strong> {{ artisan?.location }}</p>
       <p>
@@ -31,22 +31,37 @@
         <p>{{ artisan?.about }}</p>
       </div>
       <div id="contact" class="tab-pane fade">
-        <form #form="ngForm" (ngSubmit)="sendMessage(form)">
+        <form [formGroup]="form" (ngSubmit)="sendMessage()">
           <div class="mb-3">
             <label for="name" class="form-label">Nom</label>
-            <input type="text" class="form-control" id="name" [(ngModel)]="contactName" name="name" required />
+            <input type="text" class="form-control" id="name" formControlName="contactName" required />
+            <div *ngIf="form.get('contactName')?.invalid && form.get('contactName')?.touched" class="text-danger">
+              Le nom est requis (3-50 caractères).
+            </div>
           </div>
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" [(ngModel)]="contactEmail" name="email" required />
+            <input type="email" class="form-control" id="email" formControlName="contactEmail" required />
+            <div *ngIf="form.get('contactEmail')?.invalid && form.get('contactEmail')?.touched" class="text-danger">
+              Veuillez entrer un email valide.
+            </div>
           </div>
           <div class="mb-3">
             <label for="message" class="form-label">Message</label>
-            <textarea class="form-control" id="message" rows="3" [(ngModel)]="contactMessage" name="message"
-              required></textarea>
+            <textarea class="form-control" id="message" rows="3" formControlName="contactMessage" required></textarea>
+            <div *ngIf="form.get('contactMessage')?.invalid && form.get('contactMessage')?.touched" class="text-danger">
+              Le message doit contenir au moins 10 caractères.
+            </div>
           </div>
           <button type="submit" class="btn btn-primary">Envoyer</button>
         </form>
+
+        <div *ngIf="showModal" [ngClass]="{'bg-success': isSuccess, 'bg-danger': !isSuccess}" class="modal-overlay">
+          <div class="modal-content">
+            <p>{{ modalMessage }}</p>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

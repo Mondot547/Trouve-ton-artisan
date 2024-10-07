@@ -6,31 +6,34 @@ nav {
 
   .container-fluid {
     margin: 0 auto;
-  }
 
-  #navbarNav {
-    display: flex;
-    justify-content: flex-end;
+    .navbar-brand>img {
+      width: 300px;
+      height: 150px;
+    }
 
-    .navbar-nav {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
+    #navbarSupportedContent {
+      .navbar-nav {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
 
-      .nav-link {
-        text-decoration: none;
-        color: #384050;
-        padding: 10px;
-        border-radius: 10px;
+        .nav-link {
+          text-decoration: none;
+          color: #384050;
+          padding: 10px;
+          border-radius: 10px;
 
-        &:is(:hover, :focus, :focus-within, :active) {
-          color: #f1f8fc;
-          background-color: #0074c7;
-          transition: all ease 0.6s;
+          &:is(:hover, :focus, :focus-within, :active) {
+            color: #f1f8fc;
+            background-color: #0074c7;
+            transition: all ease 0.6s;
 
+          }
         }
       }
     }
   }
+
 }

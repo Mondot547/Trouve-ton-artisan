@@ -2,15 +2,31 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
+const helmet = require('helmet');
+const { body, validationResult } = require('express-validator');
+const rateLimit = require('express-rate-limit');
+
+//limiter le nombre de requête par IP pour éviter les attaques DoS
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limite chaque IP à 100 requêtes par fenêtre de 15 minutes
+});
+
+const corsOptions = {
+  origin: 'http://localhost:4200',
+  optionSuccessStatus: 200
+};
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors()); // Activer CORS pour permettre les requêtes depuis ton frontend Angular
+app.use(cors(corsOptions)); // Activer CORS pour permettre les requêtes depuis ton frontend Angular
+app.use(helmet());
+app.use(limiter);
 
 // Configuration de Nodemailer pour MailHog
 const transporter = nodemailer.createTransport({
   host: 'localhost',
-  port: 1025, // MailHog écoute par défaut sur le port 1025
+  port: 1025,
   secure: false,
   tls: {
     rejectUnauthorized: false
@@ -18,7 +34,17 @@ const transporter = nodemailer.createTransport({
 });
 
 // Point de terminaison pour envoyer l'email
-app.post('/send-email', (req, res) => {
+app.post('/send-email', [
+  //vérifie que seules les données valides sont acceptées par le serveur (évite les injections malveillante !)
+  body('fromName').isLength({ min: 3, max: 50 }).trim().escape(),
+  body('fromEmail').isEmail().normalizeEmail(),
+  body('messageContent').isLength({ min: 10 }).trim().escape()
+], (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   const { toEmail, fromName, fromEmail, messageContent } = req.body;
 
   const mailOptions = {
