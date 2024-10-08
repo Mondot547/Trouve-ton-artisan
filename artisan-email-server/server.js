@@ -1,26 +1,30 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
 const helmet = require('helmet');
 const { body, validationResult } = require('express-validator');
 const rateLimit = require('express-rate-limit');
+require('dotenv').config();
 
 //limiter le nombre de requête par IP pour éviter les attaques DoS
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limite chaque IP à 100 requêtes par fenêtre de 15 minutes
+  max: 100, // limite chaque IP à 100 requêtes par fenêtre de 15 minutes
+  message: 'Trop de requête de cette IP, veuillez réessayer dans 15 minutes.'
 });
 
 const corsOptions = {
-  origin: 'http://localhost:4200',
+  origin: ['http://localhost:4200', 'www.trouve-ton-artisan.fr'],
   optionSuccessStatus: 200
 };
 
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json({ limit: '10kb' })); //limitez la taille des requêtes
 app.use(cors(corsOptions)); // Activer CORS pour permettre les requêtes depuis ton frontend Angular
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false,
+  crossOriginResourcePolicy: { policy: "same-site" },
+}));
 app.use(limiter);
 
 // Configuration de Nodemailer pour MailHog
@@ -38,7 +42,7 @@ app.post('/send-email', [
   //vérifie que seules les données valides sont acceptées par le serveur (évite les injections malveillante !)
   body('fromName').isLength({ min: 3, max: 50 }).trim().escape(),
   body('fromEmail').isEmail().normalizeEmail(),
-  body('messageContent').isLength({ min: 10 }).trim().escape()
+  body('messageContent').isLength({ min: 10, max: 1000 }).trim().escape()
 ], (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

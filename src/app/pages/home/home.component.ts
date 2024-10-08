@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
   }
 
   setMetaData() {
-    this.titleService.setTitle('Bienvenue sur notre site !');
+    this.titleService.setTitle('Accueil | Trouve-ton-artisan');
     this.metaService.updateTag({ name: 'description', content: 'Ceci est la page d\'accueil de notre site. Découvrez nos artisans.' });
     this.metaService.updateTag({ name: 'keywords', content: 'artisan, accueil, services' });
     this.metaService.updateTag({ property: 'og:title', content: 'Bienvenue sur notre site !' });
