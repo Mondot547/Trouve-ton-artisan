@@ -1,35 +1,33 @@
 .artisan-profile {
-    height: 100vh;
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-    .row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+  .modal-overlay {
+    position: fixed;
+    top: 10%;
+    left: 88%;
+    width: 200px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    color: #384050;
+    border-radius: 30px;
+
+    .modal-content {
+      padding: 20px;
     }
 
-    .modal-overlay {
-        position: fixed;
-        top: 10%;
-        left: 88%;
-        width: 200px;
-        height: 150px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-        color: #384050;
-        border-radius: 30px;
-
-        .modal-content {
-            padding: 20px;
-        }
-
-        &.bg-success {
-            background-color: #82B864;
-        }
-
-        &.bg-danger {
-            background-color: #cd2c2e;
-        }
+    &.bg-success {
+      background-color: #82b864;
     }
+
+    &.bg-danger {
+      background-color: #cd2c2e;
+    }
+  }
 }

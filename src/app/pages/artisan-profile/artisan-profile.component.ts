@@ -2,15 +2,26 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArtisanSearchService } from '../../services/artisan.service';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Artisan } from '../../models/artisan.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { RatingStarsComponent } from '../../component/rating-stars/rating-stars.component';
 
 @Component({
   selector: 'app-artisan-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RatingStarsComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RatingStarsComponent,
+  ],
   templateUrl: './artisan-profile.component.html',
   styleUrls: ['./artisan-profile.component.scss'],
 })
@@ -31,10 +42,24 @@ export class ArtisanProfileComponent implements OnInit {
   ngOnInit(): void {
     // Initialisation du formulaire avec le FormBuilder
     this.form = this.fb.group({
-      contactName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      contactName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50),
+        ],
+      ],
       contactEmail: ['', [Validators.required, Validators.email]],
-      contactSubject: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
-      contactMessage: ['', [Validators.required, Validators.minLength(10)]]
+      contactSubject: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(100),
+        ],
+      ],
+      contactMessage: ['', [Validators.required, Validators.minLength(10)]],
     });
 
     // Charger les détails de l'artisan si l'ID est présent dans l'URL
@@ -45,7 +70,7 @@ export class ArtisanProfileComponent implements OnInit {
   }
 
   sendMessage() {
-    if (!this.artisan) return;
+    if (this.form.invalid || !this.artisan) return;
 
     // Vérifier la validité du formulaire avant l'envoi
     if (this.form.invalid) {
@@ -61,26 +86,32 @@ export class ArtisanProfileComponent implements OnInit {
       toEmail: this.artisan.email,
       fromName: this.form.value.contactName,
       fromEmail: this.form.value.contactEmail,
-      messageContent: this.form.value.contactMessage
+      subject: this.form.value.subject,
+      messageContent: this.form.value.contactMessage,
     };
 
     // Requête POST vers le backend
-    this.http.post('http://localhost:3000/send-email', emailData)
-      .subscribe(
-        response => {
-          this.isSuccess = true;
-          this.modalMessage = 'Email envoyé avec succès !';
-          this.showModal = true;
-          this.form.reset(); // Réinitialiser le formulaire après l'envoi
-          this.closeModalAfterDelay();
-        },
-        error => {
-          this.isSuccess = false;
-          this.modalMessage = 'Une Erreur est survenue lors de l\'envoi de l\'email !';
-          this.showModal = true;
-          this.closeModalAfterDelay();
-        }
-      );
+    this.http.post('http://localhost:3000/send-email', emailData).subscribe(
+      (response) => {
+        this.isSuccess = true;
+        this.modalMessage = 'Email envoyé avec succès !';
+        this.showModal = true;
+        this.form.reset(); // Réinitialiser le formulaire après l'envoi
+        this.closeModalAfterDelay();
+      },
+      (err: HttpErrorResponse) => {
+        this.isSuccess = false;
+        this.modalMessage =
+          "Une Erreur est survenue lors de l'envoi de l'email !";
+        console.error("Erreur lors de l'envoi de l'email", err);
+        alert(
+          "Erreur lors de l'envoi de l'email : " +
+            err.error.errors.map((error: any) => error.msg).join(', ')
+        );
+        this.showModal = true;
+        this.closeModalAfterDelay();
+      }
+    );
   }
 
   loadArtisanDetails(id: string): void {
