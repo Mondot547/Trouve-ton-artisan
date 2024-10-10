@@ -7,6 +7,7 @@ const rateLimit = require("express-rate-limit");
 const cors = require("cors");
 const cookieParser = require("cookie-parser"); // Import cookie-parser
 const artisans = require("../assets/datas.json");
+const path = require("path");
 
 const app = express();
 app.use(express.json());
@@ -94,6 +95,14 @@ app.post(
     });
   }
 );
+
+app.use(express.static(path.join(__dirname, "../../dist/trouve-ton-artisan")));
+
+app.get("*", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "../../dist/trouve-ton-artisan/browser/index.html")
+  );
+});
 
 const PORT = 3000;
 app.listen(PORT, () => {
