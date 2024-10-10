@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+/* src/styles.css */
+@font-face {
+  font-family: "Graphik";
+  src: url("/src/assets/fonts/Graphik-Light-Trial.otf") format("otf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik-super";
+  src: url("/src/assets/fonts/Graphik-Super-Trial.otf") format("otf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.card-title {
+  font-family: "Graphik", sans-serif;
+}
+
+* {
+  font-family: "Graphik-super", sans-serif;
+}
