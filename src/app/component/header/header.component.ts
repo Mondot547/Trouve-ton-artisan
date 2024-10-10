@@ -15,6 +15,7 @@ import { ArtisanMethods } from '../../services/artisan-methods.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  Logo: string = '/assets/images/Logo.png';
   filteredArtisans$ = this.artisanService.getFilteredArtisans();
   topRatedArtisans: Artisan[] = [];
 

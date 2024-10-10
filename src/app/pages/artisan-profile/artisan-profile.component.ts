@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArtisanSearchService } from '../../services/artisan.service';
 import { CommonModule } from '@angular/common';
@@ -10,7 +10,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { Artisan } from '../../models/artisan.model';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { RatingStarsComponent } from '../../component/rating-stars/rating-stars.component';
 
 @Component({
@@ -35,7 +34,6 @@ export class ArtisanProfileComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private artisanService: ArtisanSearchService,
-    private http: HttpClient,
     private fb: FormBuilder
   ) {}
 
@@ -58,7 +56,7 @@ export class ArtisanProfileComponent implements OnInit {
           Validators.minLength(3),
           Validators.maxLength(100),
         ],
-      ],
+      ], // Ajout du sujet
       contactMessage: ['', [Validators.required, Validators.minLength(10)]],
     });
 
@@ -70,7 +68,7 @@ export class ArtisanProfileComponent implements OnInit {
   }
 
   sendMessage() {
-    if (this.form.invalid || !this.artisan) return;
+    if (!this.artisan) return;
 
     // Vérifier la validité du formulaire avant l'envoi
     if (this.form.invalid) {
@@ -81,37 +79,31 @@ export class ArtisanProfileComponent implements OnInit {
       return;
     }
 
-    // Objet pour l'email
+    // Affichage des données dans la console
     const emailData = {
       toEmail: this.artisan.email,
       fromName: this.form.value.contactName,
       fromEmail: this.form.value.contactEmail,
-      subject: this.form.value.subject,
+      subject: this.form.value.contactSubject,
       messageContent: this.form.value.contactMessage,
     };
 
-    // Requête POST vers le backend
-    this.http.post('http://localhost:3000/send-email', emailData).subscribe(
-      (response) => {
-        this.isSuccess = true;
-        this.modalMessage = 'Email envoyé avec succès !';
-        this.showModal = true;
-        this.form.reset(); // Réinitialiser le formulaire après l'envoi
-        this.closeModalAfterDelay();
-      },
-      (err: HttpErrorResponse) => {
-        this.isSuccess = false;
-        this.modalMessage =
-          "Une Erreur est survenue lors de l'envoi de l'email !";
-        console.error("Erreur lors de l'envoi de l'email", err);
-        alert(
-          "Erreur lors de l'envoi de l'email : " +
-            err.error.errors.map((error: any) => error.msg).join(', ')
-        );
-        this.showModal = true;
-        this.closeModalAfterDelay();
-      }
-    );
+    console.log('Données du formulaire :', emailData);
+
+    // Simuler un envoi d'email (ici, on va simuler un succès)
+    // Dans une vraie application, ici tu ferais l'appel à un service d'email.
+    this.simulateEmailSending(emailData);
+  }
+
+  simulateEmailSending(emailData: any) {
+    // Simuler un délai de 1 seconde pour l'envoi
+    setTimeout(() => {
+      this.isSuccess = true; // Simuler un succès
+      this.modalMessage = 'Email envoyé avec succès !'; // Message de succès
+      this.showModal = true; // Affiche la modal
+      this.form.reset(); // Réinitialiser le formulaire après l'envoi
+      this.closeModalAfterDelay();
+    }, 1000);
   }
 
   loadArtisanDetails(id: string): void {

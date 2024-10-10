@@ -10,12 +10,13 @@
       <p><strong>Localisation :</strong> {{ artisan?.location }}</p>
       <p>
         <strong>Site Web : </strong>
-        <a *ngIf="artisan?.website; else showEmail" [href]="artisan?.website">{{ artisan?.website }}</a>
+        <a *ngIf="artisan?.website; else showEmail" [href]="artisan?.website">{{
+          artisan?.website
+        }}</a>
         <ng-template #showEmail>
           <span>{{ artisan?.email }}</span>
         </ng-template>
       </p>
-
     </div>
   </div>
 
@@ -23,7 +24,9 @@
   <div class="mt-4 mb-5">
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a class="nav-link active" data-bs-toggle="tab" href="#description">Description</a>
+        <a class="nav-link active" data-bs-toggle="tab" href="#description"
+          >Description</a
+        >
       </li>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="tab" href="#contact">Contacter</a>
@@ -38,41 +41,91 @@
         <form [formGroup]="form" (ngSubmit)="sendMessage()">
           <div class="mb-3">
             <label for="name" class="form-label">Nom</label>
-            <input type="text" class="form-control" id="name" formControlName="contactName" required />
-            <div *ngIf="form.get('contactName')?.invalid && form.get('contactName')?.touched" class="text-danger">
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              formControlName="contactName"
+              required
+            />
+            <div
+              *ngIf="
+                form.get('contactName')?.invalid &&
+                form.get('contactName')?.touched
+              "
+              class="text-danger"
+            >
               Le nom est requis (3-50 caractères).
             </div>
           </div>
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" formControlName="contactEmail" required />
-            <div *ngIf="form.get('contactEmail')?.invalid && form.get('contactEmail')?.touched" class="text-danger">
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              formControlName="contactEmail"
+              required
+            />
+            <div
+              *ngIf="
+                form.get('contactEmail')?.invalid &&
+                form.get('contactEmail')?.touched
+              "
+              class="text-danger"
+            >
               Veuillez entrer un email valide.
             </div>
           </div>
           <div class="mb-3">
             <label for="subject" class="form-label">Sujet</label>
-            <input type="text" class="form-control" id="subject" formControlName="contactSubject" required />
-            <div *ngIf="form.get('contactSubject')?.invalid && form.get('contactSubject')?.touched" class="text-danger">
+            <input
+              type="text"
+              class="form-control"
+              id="subject"
+              formControlName="contactSubject"
+              required
+            />
+            <div
+              *ngIf="
+                form.get('contactSubject')?.invalid &&
+                form.get('contactSubject')?.touched
+              "
+              class="text-danger"
+            >
               Le sujet est requis (3-100 caractères).
             </div>
           </div>
           <div class="mb-3">
             <label for="message" class="form-label">Message</label>
-            <textarea class="form-control" id="message" rows="3" formControlName="contactMessage" required></textarea>
-            <div *ngIf="form.get('contactMessage')?.invalid && form.get('contactMessage')?.touched" class="text-danger">
+            <textarea
+              class="form-control"
+              id="message"
+              rows="3"
+              formControlName="contactMessage"
+              required
+            ></textarea>
+            <div
+              *ngIf="
+                form.get('contactMessage')?.invalid &&
+                form.get('contactMessage')?.touched
+              "
+              class="text-danger"
+            >
               Le message doit contenir au moins 10 caractères.
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Envoyer</button>
-        </form>
-
-        <div *ngIf="showModal" [ngClass]="{'bg-success': isSuccess, 'bg-danger': !isSuccess}" class="modal-overlay">
-          <div class="modal-content">
-            <p>{{ modalMessage }}</p>
+          <div class="container d-flex">
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+            <div
+              *ngIf="showModal"
+              [ngClass]="{ 'bg-success': isSuccess, 'bg-danger': !isSuccess }"
+              class="modal-overlay mx-5 px-4"
+            >
+              <p class="modal-content">{{ modalMessage }}</p>
+            </div>
           </div>
-        </div>
-
+        </form>
       </div>
     </div>
   </div>

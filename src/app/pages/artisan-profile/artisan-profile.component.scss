@@ -6,20 +6,15 @@
   }
 
   .modal-overlay {
-    position: fixed;
-    top: 10%;
-    left: 88%;
-    width: 200px;
-    height: 150px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    z-index: 1000;
-    color: #384050;
-    border-radius: 30px;
+    justify-content: center;
+    padding-top: 10px;
+    color: #f1f8fc;
+    border-radius: 5px;
 
     .modal-content {
-      padding: 20px;
+      align-items: center;
     }
 
     &.bg-success {
