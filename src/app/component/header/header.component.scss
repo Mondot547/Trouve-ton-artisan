@@ -28,5 +28,14 @@ nav {
         }
       }
     }
+    .search-bar {
+      text-align: center; // Centre le contenu
+
+      @media (max-width: 991px) {
+        // Pour les écrans tablette/mobile
+        width: 100%;
+        margin-top: 10px; // Ajoute un espacement en dessous du logo et toggle
+      }
+    }
   }
 }
