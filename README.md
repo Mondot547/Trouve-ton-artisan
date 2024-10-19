@@ -1,27 +1,20 @@
 # TrouveTonArtisan
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.6.
+cloner le repository: git clone https://github.com/Mondot547/Trouve-ton-artisan.git .
 
-## Development server
+ouvrir un terminal et taper la commande: npm i .
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+ensuite aller dans le dossier server et exécuter la même commande: npm i .
 
-## Code scaffolding
+ensuite afin de simuler correctement l'envoie des formulaires je conseils d'utiliser mailhog:
+Téléchargez MailHog à partir de GitHub releases, extrayez l'archive, et exécutez MailHog.exe.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+MailHog écoute par défaut sur le port 1025 pour SMTP et expose une interface web sur le port 8025.
 
-## Build
+L'interface web sera accessible à l'adresse suivante : http://localhost:8025.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+pour lancer le front-end il faut se rendre dans le dossier Trouve-ton-artisan et taper la commande "ng serve" dans un terminal
 
-## Running unit tests
+pour lancer le back-end il faut se rendre dans le dossier server et taper la commande "npx nodemon server.js"
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Enjoy !
